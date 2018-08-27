@@ -13,7 +13,7 @@ class SurveysController < ApplicationController
   end
 
   def create
-    @survey.create(survey_params.merge(company_id: current_user.company_id))
+    @survey=Survey.create(survey_params.merge(company_id: current_user.company_id))
     redirect_to new_survey_question_path(@survey)
   end
 
