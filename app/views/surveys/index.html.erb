@@ -1,0 +1,28 @@
+<h1>Survey</h1>
+
+<% if current_user.president %>
+          <p><%= link_to 'Create Survey', new_survey_path %></p>
+        <% end %>
+        <br>
+
+<table>
+  <thead>
+    <tr>
+      <th>Index</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @surveys.each do |survey| %>
+      <tr>
+        <td><%= survey.title %></td>
+        <% if @done_flag %>
+          <td><%= link_to 'Show Result', survey_answers_path(survey) %></td>
+        <% else %>
+          <td><%= link_to 'Answer to Survey', new_survey_answer_path(survey) %></td>
+      </tr>
+    <% end %>
+  <% end %>
+  </tbody>
+</table>
+
