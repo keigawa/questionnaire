@@ -1,0 +1,75 @@
+<h1><%= @survey.title %></h1>
+<td><%= link_to 'Edit', edit_survey_path(@survey) %></td>
+<td><%= link_to 'Delete', survey_path(@survey), method: :delete %></td>
+<br>
+<br>
+<br>
+<table>
+  <thead>
+    <tr>
+      <th>Questions</th>
+      </tr>
+  </thead>
+  <tbody>
+    <% @questions.each do |q| %>
+      <div>
+    <% @textbox=Textbox.find_by(question_id: q.id) %>
+    <% @textarea=Textarea.find_by(question_id: q.id) %>
+    <% @checkbox=Checkbox.find_by(question_id: q.id) %>
+    <% @radiobutton=Radiobutton.find_by(question_id: q.id) %>
+
+    <% if @textbox %>
+      <th><%= p @n %></th>
+      <th><%= @textbox.subject %></th>
+      <td><%= link_to 'Edit Question', edit_survey_textbox_path(@survey,@textbox)  %></td>
+      <td><%= link_to 'Delete Question', survey_textbox_path(@survey,@textbox), method: :delete %></td>
+
+    <% elsif @textarea %>
+      <th><%= p @n %></th>
+      <th><%= @textarea.subject %></th>
+      <td><%= link_to 'Edit Question', edit_survey_textarea_path(@survey,@textarea)  %></td>
+      <td><%= link_to 'Delete Question', survey_question_path(@survey,q), method: :delete %></td>
+
+    <% elsif @checkbox %>
+      <thead>  
+      <th><%= p @n %></th>
+        <th><%= @checkbox.subject %></th>
+        <td><%= link_to 'Edit Question', edit_survey_checkbox_path(@survey,@checkbox)  %></td>
+        <td><%= link_to 'Delete Question', survey_question_path(@survey,q), method: :delete %></td>
+        <td><%= link_to 'New Checkbox', new_survey_checkbox_checkbox_option_path(@survey,@checkbox) %></td>
+      </thead>  
+      <% @checkbox_options=CheckboxOption.where(checkbox_id: @checkbox.id) %>
+      <% @checkbox_options.each do |c| %>
+        <tbody><th><%= c.optionname %></th>
+          <td><%= link_to 'Edit Optionname', edit_survey_checkbox_checkbox_option_path(@survey,@checkbox) %></td>
+          <td><%= link_to 'Delete Option', survey_checkbox_checkbox_option_path(@survey,@checkbox), method: :delete %></td>
+        <% end %>
+        </tbody>
+
+      <% elsif @radiobutton %>
+        <thead>
+      <th><%= p @n %></th>
+          <th><%= @radiobutton.subject %></th>
+          <td><%= link_to 'Edit Question', edit_survey_radiobutton_path(@survey,@radiobutton)  %></td>
+          <td><%= link_to 'Delete Question', survey_question_path(@survey,q), method: :delete %></td>
+          <td><%= link_to 'New Radiobutton', new_survey_radiobutton_radiobutton_option_path(@survey,@radiobutton) %></td>
+        </thead>
+        <% @radiobutton_options=RadiobuttonOption.where(radiobutton_id: @radiobutton.id) %>
+        <% @radiobutton_options.each do |r| %>
+          <tbody><th><%= r.optionname %></th>
+            <td> <%= link_to 'Edit Optionname', edit_survey_radiobutton_radiobutton_option_path(@survey,@radiobutton) %></td>
+            <td><%= link_to 'Delete Option', survey_radiobutton_radiobutton_option_path(@survey,@radiobutton), method: :delete %></td>
+          <% end %>
+          </tbody>
+
+        <% end %>
+      </div>
+      <% @n+=1 %>
+      <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Question', new_survey_question_path(@survey) %>
+<%= link_to 'Back', surveys_path %>

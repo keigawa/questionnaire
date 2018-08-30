@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateRadiobuttonOptions < ActiveRecord::Migration[5.2]
   def change
     create_table :radiobutton_options do |t|

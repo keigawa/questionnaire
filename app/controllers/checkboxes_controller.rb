@@ -1,0 +1,2 @@
+class CheckboxesController < ApplicationController
+end

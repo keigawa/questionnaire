@@ -1,0 +1,2 @@
+module CheckboxesHelper
+end

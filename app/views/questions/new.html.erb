@@ -1,26 +1,10 @@
-<%= form_with(url: survey_questions_path, local: true) do |form| %>
-  <p>第<%= form.number_field :number, min:"1" %>問</p>
-  <br>
-  <p>
-  <label>
-  <%= radio_button_tag :type, "textbox" %>Textbox形式で作成
-  </label>
-  </p>
-  <p>
-  <label>
-  <%= radio_button_tag :type, "textarea" %>Textarea形式で作成
-</label>
-  </p>
-  <p>
-  <label>
-  <%= radio_button_tag :type, "checkbox" %>Checkbox形式で作成
-</label>
-  </p>
-  <p>
-  <label>
-  <%= radio_button_tag :type, "radiobutton" %>Radiobutton形式で作成
-</label>
-  </p>
-  <%= form.hidden_field :survey_id, :value => @survey.id %>
-  <br>    <%= form.submit %>
-<% end %>
+<p><%= link_to 'Textbox形式で作成', new_survey_textbox_path(@survey) %></p>
+<br>
+<p><%= link_to 'Textarea形式で作成', new_survey_textarea_path(@survey) %></p>
+<br>
+<p><%= link_to 'Checkbox形式で作成', new_survey_checkbox_path(@survey) %></p>
+<br>
+<p><%= link_to 'Radiobutton形式で作成', new_survey_radiobutton_path(@survey) %></p>
+<br>
+<%= link_to 'Back', survey_path(@survey) %>
+

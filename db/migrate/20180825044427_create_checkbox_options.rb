@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateCheckboxOptions < ActiveRecord::Migration[5.2]
   def change
     create_table :checkbox_options do |t|

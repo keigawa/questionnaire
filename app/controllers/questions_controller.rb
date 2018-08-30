@@ -2,7 +2,7 @@ class QuestionsController < ApplicationController
   before_action :set_survey
 
   def new
-  @question=@survey.questions.new
+    @display_order=0
   end
 
   def create
