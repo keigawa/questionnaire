@@ -1,0 +1,2 @@
+class RadiobuttonsController < ApplicationController
+end
