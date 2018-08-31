@@ -1,0 +1,8 @@
+<%= form_with(model: [survey,option,answer], local: true) do |form| %>
+    <%= type.subject %>
+    <% option.each do |op|%>
+    <%= form.check_box :op  %>
+<% end %>
+    <%= form.hidden_field :checkbox_option_id, :value=>option.id %>
+      <%= form.submit %>
+<% end %>

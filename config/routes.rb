@@ -19,7 +19,7 @@ Rails.application.routes.draw do
    resources :radiobuttons do
      resources :radiobutton_options
    end
-      resources :questions, :textboxes, :textareas, :answers, :answer_textboxes, :answer_checkbox_options, :answer_radiobutton_options
+      resources :questions, :textboxes, :textareas, :answers, :answer_textboxes, :answer_textareas, :answer_checkbox_options, :answer_radiobutton_options
   end
 
   post 'confirm', to: 'confirms#set_flag'

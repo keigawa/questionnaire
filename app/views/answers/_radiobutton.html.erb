@@ -1,0 +1,8 @@
+<%= form_with(model: [survey,option,answer], local: true) do |form| %>
+    <%= @radiobutton.subject %>
+    <% option.each do |op|%>
+    <%= form.radiobutton :op  %>
+<% end %>
+    <%= form.hidden_field :radiobutton_option_id, :value=>option.id %>
+      <%= form.submit %>
+<% end %>
