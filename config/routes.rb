@@ -19,12 +19,12 @@ Rails.application.routes.draw do
    resources :radiobuttons do
      resources :radiobutton_options
    end
-   member do
-     get 'confirm'
-     get 'result'
-   end
-   resources :questions, :textboxes, :textareas, :answers, :answer_textboxes, :answer_checkbox_options, :answer_radiobutton_options
+      resources :questions, :textboxes, :textareas, :answers, :answer_textboxes, :answer_checkbox_options, :answer_radiobutton_options
   end
+
+  post 'confirm', to: 'confirms#set_flag'
+  get 'verify', to: 'verifies#display'
+  get 'result', to: 'results#display'
 
   root 'surveys#index'
 

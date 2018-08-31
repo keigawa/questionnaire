@@ -2,4 +2,5 @@
 
 class Checkbox < ApplicationRecord
   belongs_to :question
+  has_many :checkbox_options
 end

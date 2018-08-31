@@ -8,15 +8,15 @@ class TextboxesController < ApplicationController
   end
 
   def create
-    @exist_flag = Question.find_by(survey_id: params[:survey_id])
-    if @exist_flag
+    exist_flag = Question.find_by(survey_id: params[:survey_id])
+    if exist_flag
       latest_number = Question.where(survey_id: params[:survey_id]).maximum(:display_order)
       input_number = latest_number + 1
-      @question = Question.create(display_order: input_number, survey_id: params[:survey_id])
+      question = Question.create(display_order: input_number, survey_id: params[:survey_id])
     else
-      @question = Question.create(display_order: 1, survey_id: params[:survey_id])
+      question = Question.create(display_order: 1, survey_id: params[:survey_id])
     end
-    @textbox = Textbox.create(textbox_params.merge(question_id: @question.id))
+    Textbox.create(textbox_params.merge(question_id: question.id))
     redirect_to survey_path(@survey)
   end
 
@@ -28,9 +28,9 @@ class TextboxesController < ApplicationController
   end
 
   def destroy
-    @question = Question.find_by(id: @textbox.question_id)
+    question = Question.find_by(id: @textbox.question_id)
     @textbox.destroy
-    @question.destroy
+    question.destroy
     redirect_to survey_path(@survey), notice: 'Question was successfully deleted.'
   end
 
