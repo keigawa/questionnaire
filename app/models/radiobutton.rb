@@ -2,4 +2,5 @@
 
 class Radiobutton < ApplicationRecord
   belongs_to :question
+  has_many :radiobutton_options
 end

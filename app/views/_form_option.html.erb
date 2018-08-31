@@ -1,0 +1,6 @@
+<%= form_with(model: [survey,type,option_type], local: true) do |form| %>
+    <%= form.label :optionname %>
+    <%= form.text_field :optionname %>
+    <%= form.hidden_field :survey_id, :value=>survey.id %>
+      <%= form.submit %>
+<% end %>
