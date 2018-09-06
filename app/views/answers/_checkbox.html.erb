@@ -1,8 +1,9 @@
-<%= form_with(model: [survey,option,answer], local: true) do |form| %>
-    <%= type.subject %>
-    <% option.each do |op|%>
-    <%= form.check_box :op  %>
-<% end %>
-    <%= form.hidden_field :checkbox_option_id, :value=>option.id %>
-      <%= form.submit %>
+<%= form_with(url: direction, local: true, :method => :post) do %>
+  <%= type.subject %>
+  <% option.each do |op|%>
+    <%= label_tag op.optionname %>
+    <%= check_box_tag('answer_array[]', op.id) %>
+  <% end %>
+  <%= hidden_field_tag :question_id, question.id %>
+  <%= submit_tag %>
 <% end %>

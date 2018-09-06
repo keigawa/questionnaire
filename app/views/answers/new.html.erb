@@ -1,16 +1,13 @@
 <h1>Question <%= @n %></h1>
 
 <% if @textbox %>
-<%= render partial: 'textbox', locals: {survey: @survey,  answer: @answer_textbox} %>
-<% end %>
-<% if @textarea %>
-<%= render partial: 'textarea', locals: {survey: @survey,  answer: @answer_textarea} %>
-<% end %>
-<% if @checkbox %>
-<%= render partial: 'checkbox', locals: {survey: @survey, option: @checkbox_options, answer: @answer_checkbox_option} %>
-<% end %>
-<% if @radiobutton %>
-<%= render partial: 'radiobutton', locals: {survey: @survey, option: @radiobutton_options, answer: @answer_radiobutton_option} %>
+<%= render partial: 'textbox', locals: {survey: @survey, type: @textbox, answer: @answer_textbox, question: @question} %>
+<% elsif @textarea %>
+<%= render partial: 'textarea', locals: {survey: @survey, type: @textarea,  answer: @answer_textarea, question: @question} %>
+<% elsif @checkbox %>
+<%= render partial: 'checkbox', locals: {direction: survey_answer_checkbox_options_path, survey: @survey, type: @checkbox, option: @checkbox_options, answer: @answer_checkbox_option, question: @question} %>
+<% elsif @radiobutton %>
+<%= render partial: 'radiobutton', locals: {direction: survey_answer_radiobutton_options_path, survey: @survey, type: @radiobutton, option: @radiobutton_options, answer: @answer_radiobutton_option, question: @question} %>
 <% end %>
 
 <%= link_to 'Quit answering', surveys_path(@survey) %>
