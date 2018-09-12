@@ -6,3 +6,7 @@
 require_relative 'config/application'
 
 Rails.application.load_tasks
+
+task collect_number_of_answer do
+  puts
+end

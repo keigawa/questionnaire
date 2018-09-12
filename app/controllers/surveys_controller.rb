@@ -1,5 +1,5 @@
 class SurveysController < ApplicationController
-  before_action :set_survey, only: [:show, :edit, :destroy]
+  before_action :set_survey, only: %i[show edit destroy]
 
   def index
     @surveys = Survey.where(company_id: current_user.company_id)
@@ -58,6 +58,7 @@ class SurveysController < ApplicationController
   end
 
   private
+
   def set_survey
     @survey = Survey.find(params[:id])
   end

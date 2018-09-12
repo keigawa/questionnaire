@@ -1,11 +1,11 @@
 class UsersController < ApplicationController
-  before_action :set_company, only: [:index, :new]
+  before_action :set_company, only: %i[index new]
   def index
-    @users=User.where(company_id: current_user.company_id)
+    @users = User.where(company_id: current_user.company_id)
   end
 
   def new
-    @user=User.new
+    @user = User.new
   end
 
   def create
@@ -22,7 +22,8 @@ class UsersController < ApplicationController
   end
 
   private
+
   def set_company
-    @company=Company.find(current_user.company_id)
+    @company = Company.find(current_user.company_id)
   end
 end

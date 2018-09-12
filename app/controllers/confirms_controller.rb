@@ -1,19 +1,17 @@
 class ConfirmsController < ApplicationController
   def set_flag
-    @survey=Survey.find(params[:id])
-    questions=@survey.questions
+    @survey = Survey.find(params[:id])
+    questions = @survey.questions
     # Question.where(survey_id: params[:id])
-    if questions.empty?
-      redirect_to survey_path(@survey)
-    end
-    checkboxes_include_nil=[]
-    radiobuttons_include_nil=[]
+    redirect_to survey_path(@survey) if questions.empty?
+    checkboxes_include_nil = []
+    radiobuttons_include_nil = []
     questions.each do |q|
       checkboxes_include_nil.push(Checkbox.find_by(question_id: q.id))
       radiobuttons_include_nil.push(Radiobutton.find_by(question_id: q.id))
     end
-    checkboxes=checkboxes_include_nil.compact
-    radiobuttons=radiobuttons_include_nil.compact
+    checkboxes = checkboxes_include_nil.compact
+    radiobuttons = radiobuttons_include_nil.compact
     if checkboxes.empty?
     else checkboxes.each do |cb|
       if CheckboxOption.where(checkbox_id: cb.id).empty?

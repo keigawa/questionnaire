@@ -1,12 +1,10 @@
 class VerifiesController < ApplicationController
-  before_action :set_survey 
+  before_action :set_survey
   def display
-    done_flag=UserSurvey.find_by(user_id: current_user.id, survey_id: @survey.id) 
-    if done_flag
-    redirect_to surveys_path
-    end
-    @questions=Question.where(survey_id: params[:id]).order(:display_order)
-    @n=1
+    done_flag = UserSurvey.find_by(user_id: current_user.id, survey_id: @survey.id)
+    redirect_to surveys_path if done_flag
+    @questions = Question.where(survey_id: params[:id]).order(:display_order)
+    @n = 1
   end
 
   def done_flag
@@ -14,8 +12,9 @@ class VerifiesController < ApplicationController
     redirect_to surveys_path
   end
 
-    private
+  private
+
   def set_survey
-    @survey=Survey.find(params[:id])
+    @survey = Survey.find(params[:id])
   end
 end
