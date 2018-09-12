@@ -1,0 +1,12 @@
+<tbody>
+  <th>Your Option</th>
+  <% answers=Answer.where(question_id: q.id, user_id: current_user.id) %>
+  <% answers.each do |a| %>
+    <% answer_option=answer_type_option.find_by(answer_id: a.id) %>
+    <% if answer_option.check=="yes" %>
+      <td><%= type_option.find_by(id: answer_option.type_option_id).optionname %></td>
+    <% end %>
+  <% end %>
+  <td><%= link_to 'Edit Answer', type_url %></td>
+</tbody> 
+

@@ -1,0 +1,10 @@
+<%= form_with(model: [@company,@user], local: true, method: :post) do |form| %>
+  <p> <%= form.label :email %>
+<%= form.text_field :email %></p>
+  <p>  <%= form.label :name %>
+<%= form.text_field :name %></p>
+  <p><%= form.label :password %>
+<%= form.text_field :password %></p>
+  <p>  <%= form.submit %></p>
+<% end %>
+  <p>  <%= link_to "Back", company_users_path(@company) %></p>

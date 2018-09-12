@@ -1,0 +1,9 @@
+<% if !@answers.empty? %>
+<% @answers.each do |a| %>
+<p><%= a.content %></p>
+<% end %>
+<% elsif !@answer_options.empty? %>
+<%= pie_chart @answer_options %>
+<% end %>
+
+<%= link_to "Back", result_path(:id => @survey.id) %>

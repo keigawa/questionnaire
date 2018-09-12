@@ -3,6 +3,10 @@
 class AnswersController < ApplicationController
   def new
     @survey=Survey.find(params[:survey_id])
+    done_flag=UserSurvey.find_by(user_id: current_user.id, survey_id: @survey.id) 
+    if done_flag
+    redirect_to surveys_path
+    end
     questions=Question.where(survey_id: params[:survey_id]).order(:display_order)
     @n=1
     questions.each do |q|

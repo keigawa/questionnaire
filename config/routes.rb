@@ -21,10 +21,19 @@ Rails.application.routes.draw do
    end
       resources :questions, :textboxes, :textareas, :answers, :answer_textboxes, :answer_textareas, :answer_checkbox_options, :answer_radiobutton_options
   end
+  resources :companies do
+    resources :users
+  end
 
   post 'confirm', to: 'confirms#set_flag'
   get 'verify', to: 'verifies#display'
-  get 'result', to: 'results#display'
+  post 'verify', to: 'verifies#done_flag'
+  get 'cbanswer', to: 'cbanswers#edit'
+  put 'cbanswer', to: 'cbanswers#update'
+  get 'rbanswer', to: 'rbanswers#edit'
+  put 'rbanswer', to: 'rbanswers#update'
+  get 'result', to: 'results#index'
+  get 'consequence', to: 'consequences#display'
 
   root 'surveys#index'
 

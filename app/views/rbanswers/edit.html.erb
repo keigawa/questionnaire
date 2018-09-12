@@ -1,0 +1,8 @@
+<%= form_with(url: rbanswer_path(:id => @radiobutton.id, :survey_id => @survey.id), local: true, :method => :put) do %>
+  <%= @radiobutton.subject %>
+  <% @radiobutton_options.each do |op|%>
+    <%= label_tag op.optionname %>
+    <%= radio_button_tag('answer_button', op.id) %>
+  <% end %>
+  <%= submit_tag %>
+<% end %>
