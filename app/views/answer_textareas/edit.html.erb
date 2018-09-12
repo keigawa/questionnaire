@@ -1,0 +1,6 @@
+<h1>Edit Answer</h1>
+<%= form_with(model: [@survey,@answer_textarea], local: true) do |form| %>
+    <%= @textarea.subject %>
+    <%= form.text_field :content %>
+      <%= form.submit %>
+<% end %>

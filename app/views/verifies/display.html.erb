@@ -1,72 +1,87 @@
-<h1><%= @survey.title %></h1>
-<br>
+<h1>Verifying Page</h1>
 <br>
 <br>
 <table>
   <thead>
-    <tr>
-      <th>Questions</th>
-      </tr>
   </thead>
   <tbody>
     <% @questions.each do |q| %>
+      <% textbox=Textbox.find_by(question_id: q.id) %>
+      <% textarea=Textarea.find_by(question_id: q.id) %>
+      <% checkbox=Checkbox.find_by(question_id: q.id) %>
+      <% radiobutton=Radiobutton.find_by(question_id: q.id) %>
+      <% answer=Answer.find_by(question_id: q.id, user_id: current_user.id) %>
       <div>
-    <% textbox=Textbox.find_by(question_id: q.id) %>
-    <% textarea=Textarea.find_by(question_id: q.id) %>
-    <% checkbox=Checkbox.find_by(question_id: q.id) %>
-    <% radiobutton=Radiobutton.find_by(question_id: q.id) %>
+        <% if textbox %>
+          <th>Question<%= @n %></th>
+          <th><%= textbox.subject %></th>
+          <% answer_text=AnswerTextbox.find_by(answer_id: answer.id) %>
+          <tr>
+            <td>Your Answer</td>
+            <td><%= answer_text.content %></td>
+            <td><%= link_to 'Edit Answer', edit_survey_answer_textbox_path(@survey,textbox) %></td>
+          </tr>
 
-    <% if textbox %>
-<%= render partial: 'nooption', locals: {type: textbox, answer_type: AnswerTextbox, type_url:edit_survey_answer_textbox_path} %>
+        <% elsif textarea %>
+          <th>Question<%= @n %></th>
+          <th><%= textarea.subject %></th>
+          <% answer_text=AnswerTextarea.find_by(answer_id: answer.id) %>
+          <tr>
+            <td>Your Answer</td>
+            <td><%= answer_text.content %></td>
+            <td><%= link_to 'Edit Answer', edit_survey_answer_textarea_path(@survey,textarea) %></td>
+          </tr>
 
-    <% elsif textarea %>
-<%= render partial: 'nooption', locals: {type: textarea, answer_type: AnswerTextarea, type_url:edit_survey_answer_textarea_path} %>
-
-    <% elsif checkbox %>
-      <thead>
-      <th><%= @n %></th>
-        <th><%= checkbox.subject %></th>
-      <% checkbox_options=CheckboxOption.where(checkbox_id: checkbox.id) %>
-      <% checkbox_options.each do |c| %>
-        <td><%= c.optionname %></td>
-      </thead>
-      <tbody>
-        <th>Your Option</th>
-        <% answers=Answer.where(question_id: q.id, user_id: current_user.id) %>
-        <% answers.each do |a| %>
-        <% answer_option=AnswerCheckboxOption.find_by(answer_id: a.id) %>
-        <% if answer_option.check=="yes" %>
-        <td><%= CheckboxOption.find_by(id: answer_option.checkbox_option_id).optionname %></td>
-      <% end %>
-      <% end %>
-          <td><%= link_to 'Edit Optionname', edit_survey_checkbox_checkbox_option_path(@survey,checkbox,c) %></td>
-          <td><%= link_to 'Delete Option', survey_checkbox_checkbox_option_path(@survey,checkbox,c), method: :delete %></td>
+        <% elsif checkbox %>
+          <thead>
+            <th>Question<%= @n %></th>
+            <th><%= checkbox.subject %></th>
+            <% options=CheckboxOption.where(checkbox_id: checkbox.id) %>
+            <% options.each do |op| %>
+              <th><%= op.optionname %></th>
+            <% end %>
+          </thead>
+          <tbody>
+            <tr> <td>Your Answer</td>
+              <% answers=Answer.where(question_id: q.id, user_id: current_user.id) %>
+              <% answers.each do |a| %>
+                <% answer_option=AnswerCheckboxOption.find_by(answer_id: a.id) %>
+                <% if answer_option.check=="yes" %>
+                  <td><%= CheckboxOption.find(answer_option.checkbox_option_id).optionname %></td>
+                <% end %>
+              <% end %>
+              <td><%= link_to 'Edit Answer', cbanswer_path(:id => checkbox.id, :survey_id => @survey.id) %></td>
+            </tr>
           </tbody> 
-      <% end %>
 
-      <% elsif radiobutton %>
-        <thead>
-      <th><%= @n %></th>
-          <th><%= radiobutton.subject %></th>
-          <td><%= link_to 'Edit Question', edit_survey_radiobutton_path(@survey,radiobutton)  %></td>
-          <td><%= link_to 'Delete Question', survey_radiobutton_path(@survey,radiobutton), method: :delete %></td>
-          <td><%= link_to 'New Radiobutton', new_survey_radiobutton_radiobutton_option_path(@survey,radiobutton) %></td>
-        </thead>
-        <% radiobutton_options=RadiobuttonOption.where(radiobutton_id: radiobutton.id) %>
-        <% radiobutton_options.each do |r| %>
-          <tbody><th><%= r.optionname %></th>
-            <td> <%= link_to 'Edit Optionname', edit_survey_radiobutton_radiobutton_option_path(@survey,radiobutton,r) %></td>
-            <td><%= link_to 'Delete Option', survey_radiobutton_radiobutton_option_path(@survey,radiobutton,r), method: :delete %></td>
-          <% end %>
-          </tbody>
-
+        <% elsif radiobutton %>
+          <thead>
+            <th>Question<%= @n %></th>
+            <th><%= radiobutton.subject %></th>
+            <% options=RadiobuttonOption.where(radiobutton_id: radiobutton.id) %>
+            <% options.each do |op| %>
+              <th><%= op.optionname %></th>
+            <% end %>
+          </thead>
+          <tbody><tr>
+              <td>Your Answer</td>
+              <% answers=Answer.where(question_id: q.id, user_id: current_user.id) %>
+              <% answers.each do |a| %>
+                <% answer_option=AnswerRadiobuttonOption.find_by(answer_id: a.id) %>
+                <% if answer_option.check=="yes" %>
+                  <td><%= RadiobuttonOption.find(answer_option.radiobutton_option_id).optionname %></td>
+                <% end %>
+              <% end %>
+              <td><%= link_to 'Edit Answer', rbanswer_path(:id => radiobutton.id, :survey_id => @survey.id) %></td>
+            </tr>
+          </tbody> 
         <% end %>
       </div>
       <% @n+=1 %>
-      <% end %>
+    <% end %>
   </tbody>
 </table>
 
 <br>
 
-<%= link_to 'New Question', new_survey_question_path(@survey) %>
+<%= link_to 'Complete Answer and Back to Home', verify_path(:id => @survey.id), :method => :post %>

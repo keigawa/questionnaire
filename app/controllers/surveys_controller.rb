@@ -2,12 +2,8 @@ class SurveysController < ApplicationController
   before_action :set_survey, only: [:show, :edit, :destroy]
 
   def index
-    @done_flag = if UserSurvey.find_by(user_id: current_user.id)
-                   true
-                 else
-                   false
-                 end
     @surveys = Survey.where(company_id: current_user.company_id)
+    @company = Company.find(current_user.company_id)
   end
 
   def new

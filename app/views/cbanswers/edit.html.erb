@@ -1,0 +1,8 @@
+<%= form_with(url: cbanswer_path(:id => @checkbox.id, :survey_id => @survey.id), local: true, :method => :put) do %>
+  <%= @checkbox.subject %>
+  <% @checkbox_options.each do |op|%>
+    <%= label_tag op.optionname %>
+    <%= check_box_tag('answer_array[]', op.id) %>
+  <% end %>
+  <%= submit_tag %>
+<% end %>

@@ -16,4 +16,5 @@ class AnswerCheckboxOptionsController < ApplicationController
 end
    redirect_to new_survey_answer_path(@survey)
  end
-end
+
+ end
