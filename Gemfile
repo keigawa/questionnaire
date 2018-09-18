@@ -71,12 +71,18 @@ group :development do
   gem 'binding_of_caller'
 
   gem 'rubocop', require: false
+  
+  gem 'rubocop-rspec'
 end
 
-group :development do
+group :development, :test do
   gem 'pry-byebug'
   gem 'pry-rails'
   gem 'pry-stack_explorer'
+  gem 'rspec-rails'
+  gem 'factory_bot_rails'
+  gem 'rails-controller-testing'
+  gem 'spring-commands-rspec'
 end
 
 gem 'devise'
