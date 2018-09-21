@@ -25,6 +25,14 @@ module Devise
 
           setup :setup_integration_for_devise
           teardown :teardown_integration_for_devise
+
+          def login_user(user)
+            login_as user, scope: :user
+          end
+
+          def login_admin(admin)
+            login_as admin, scope: :admin
+          end
         end
       end
 

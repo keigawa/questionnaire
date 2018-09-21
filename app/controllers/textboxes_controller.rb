@@ -1,4 +1,4 @@
-class TextboxesController < ApplicationController
+class TextboxesController < ApplicationAdminsController
   before_action :set_survey
   before_action :set_textbox, only: %i[edit update destroy]
 

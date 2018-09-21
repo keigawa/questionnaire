@@ -1,4 +1,4 @@
-class TextareasController < ApplicationController
+class TextareasController < ApplicationAdminsController
   before_action :set_survey
   before_action :set_textarea, only: %i[edit update destroy]
 

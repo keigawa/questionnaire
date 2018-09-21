@@ -1,0 +1,22 @@
+<h1>Members</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Index</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr><%= link_to 'Add Member', new_company_user_path(@company) %></tr>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.email %></td>
+        <td><%= user.name %></td>
+        <td><%= image_tag user.image_url %></td>
+          <td><%= link_to 'Delete', company_user_path(@company,user), method: :delete %></td>
+      </tr>
+  <% end %>
+  <p>  <%= link_to "Back", home_user_path %></p>
+  </tbody>
+</table>

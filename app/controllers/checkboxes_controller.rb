@@ -1,4 +1,4 @@
-class CheckboxesController < ApplicationController
+class CheckboxesController < ApplicationAdminsController
   before_action :set_survey
   before_action :set_checkbox, only: %i[edit update destroy]
 

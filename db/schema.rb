@@ -67,9 +67,11 @@ ActiveRecord::Schema.define(version: 2018_08_28_105509) do
   create_table "answers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "question_id"
     t.bigint "user_id"
+    t.bigint "survey_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["question_id"], name: "index_answers_on_question_id"
+    t.index ["survey_id"], name: "index_answers_on_survey_id"
     t.index ["user_id"], name: "index_answers_on_user_id"
   end
 
@@ -174,7 +176,7 @@ ActiveRecord::Schema.define(version: 2018_08_28_105509) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "name"
-    t.binary "picture"
+    t.string "image"
     t.boolean "president", default: false, null: false
     t.bigint "company_id"
     t.index ["company_id"], name: "index_users_on_company_id"
@@ -193,6 +195,7 @@ ActiveRecord::Schema.define(version: 2018_08_28_105509) do
   add_foreign_key "answer_textboxes", "answers"
   add_foreign_key "answer_textboxes", "textboxes"
   add_foreign_key "answers", "questions"
+  add_foreign_key "answers", "surveys"
   add_foreign_key "answers", "users"
   add_foreign_key "checkbox_options", "checkboxes"
   add_foreign_key "checkboxes", "questions"

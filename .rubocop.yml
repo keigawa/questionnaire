@@ -1,4 +1,6 @@
 # 標準の規約 + Railsの規約
+require: rubocop-rspec
+
 Rails:
   Enabled: true
 

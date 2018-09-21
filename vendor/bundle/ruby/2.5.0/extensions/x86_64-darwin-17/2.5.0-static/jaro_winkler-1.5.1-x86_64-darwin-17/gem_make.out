@@ -1,5 +1,5 @@
 current directory: /Users/kei.ogawa/questionnaire/vendor/bundle/ruby/2.5.0/gems/jaro_winkler-1.5.1-x86_64-darwin-17/ext/jaro_winkler
-/Users/kei.ogawa/.rbenv/versions/2.5.0/bin/ruby -r ./siteconf20180828-39812-p1mr5p.rb extconf.rb
+/Users/kei.ogawa/.rbenv/versions/2.5.0/bin/ruby -r ./siteconf20180912-16481-63vp8p.rb extconf.rb
 creating Makefile
 
 current directory: /Users/kei.ogawa/questionnaire/vendor/bundle/ruby/2.5.0/gems/jaro_winkler-1.5.1-x86_64-darwin-17/ext/jaro_winkler
@@ -15,4 +15,4 @@ linking shared-object jaro_winkler/jaro_winkler_ext.bundle
 
 current directory: /Users/kei.ogawa/questionnaire/vendor/bundle/ruby/2.5.0/gems/jaro_winkler-1.5.1-x86_64-darwin-17/ext/jaro_winkler
 make "DESTDIR=" install
-/usr/bin/install -c -m 0755 jaro_winkler_ext.bundle ./.gem.20180828-39812-q99a4m/jaro_winkler
+/usr/bin/install -c -m 0755 jaro_winkler_ext.bundle ./.gem.20180912-16481-1mctt1b/jaro_winkler

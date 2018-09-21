@@ -1,36 +1,38 @@
-class ConfirmsController < ApplicationController
+class ConfirmsController < ApplicationAdminsController
   def set_flag
-    @survey=Survey.find(params[:id])
-    questions=@survey.questions
-    # Question.where(survey_id: params[:id])
+    @survey = Survey.find(params[:id])
+    questions = Question.where(survey_id: params[:id])
     if questions.empty?
-      redirect_to survey_path(@survey)
+      redirect_to survey_path(@survey), alert: 'Question has not been created.'
+      return
     end
-    checkboxes_include_nil=[]
-    radiobuttons_include_nil=[]
+    checkboxes = []
+    radiobuttons = []
     questions.each do |q|
-      checkboxes_include_nil.push(Checkbox.find_by(question_id: q.id))
-      radiobuttons_include_nil.push(Radiobutton.find_by(question_id: q.id))
+      if checkbox = Checkbox.find_by(question_id: q.id)
+        checkboxes.push(checkbox)
     end
-    checkboxes=checkboxes_include_nil.compact
-    radiobuttons=radiobuttons_include_nil.compact
+      if radiobutton = Radiobutton.find_by(question_id: q.id)
+        radiobuttons.push(radiobutton)
+    end
+    end
     if checkboxes.empty?
     else checkboxes.each do |cb|
       if CheckboxOption.where(checkbox_id: cb.id).empty?
-        redirect_to survey_path(@survey)
-        exit
+        redirect_to survey_path(@survey), alert: 'There are questions not having checkboxes.'
+        return
       end
     end
-    end
+  end
     if radiobuttons.empty?
     else radiobuttons.each do |rb|
       if RadiobuttonOption.where(radiobutton_id: rb.id).empty?
-        redirect_to survey_path(@survey)
-        exit
+        redirect_to survey_path(@survey), alert: 'There are questions not having radiobuttons.'
+        return
       end
     end
-    end
-    @survey.update_attribute(:complete_flag, 'true')
-    redirect_to surveys_path(@survey)
   end
+    @survey.update_attribute(:complete_flag, 'true')
+    redirect_to surveys_path(company_id: @survey.company_id), notice: 'Survey completed.'
+end
 end

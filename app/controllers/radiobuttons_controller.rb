@@ -1,4 +1,4 @@
-class RadiobuttonsController < ApplicationController
+class RadiobuttonsController < ApplicationAdminsController
   before_action :set_survey
   before_action :set_radiobutton, only: %i[edit update destroy]
 

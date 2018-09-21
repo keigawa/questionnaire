@@ -1,5 +1,5 @@
 current directory: /Users/kei.ogawa/questionnaire/vendor/bundle/ruby/2.5.0/gems/mysql2-0.5.2/ext/mysql2
-/Users/kei.ogawa/.rbenv/versions/2.5.0/bin/ruby -r ./siteconf20180828-39812-o3y6c1.rb extconf.rb
+/Users/kei.ogawa/.rbenv/versions/2.5.0/bin/ruby -r ./siteconf20180912-16481-2pl9w.rb extconf.rb
 checking for rb_absint_size()... yes
 checking for rb_absint_singlebit_p()... yes
 checking for rb_wait_for_single_fd()... yes
@@ -41,4 +41,4 @@ linking shared-object mysql2/mysql2.bundle
 
 current directory: /Users/kei.ogawa/questionnaire/vendor/bundle/ruby/2.5.0/gems/mysql2-0.5.2/ext/mysql2
 make "DESTDIR=" install
-/usr/bin/install -c -m 0755 mysql2.bundle ./.gem.20180828-39812-1u7mfb/mysql2
+/usr/bin/install -c -m 0755 mysql2.bundle ./.gem.20180912-16481-1y34n3j/mysql2
