@@ -1,11 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe 'Checkboxes', type: :request do
-  let(:company) { FactoryBot.create(:company) }
-  let(:user) { FactoryBot.create(:user, company_id: company.id) }
-  let(:survey) { FactoryBot.create(:survey, company_id: company.id) }
-  let(:question) { FactoryBot.create(:question, survey_id: survey.id) }
-  let(:checkbox) { FactoryBot.create(:checkbox, question_id: question.id) }
+  let(:company) { create :company }
+  let(:user) { create :user, company_id: company.id }
+  let(:survey) { create :survey, company_id: company.id }
+  let(:question) { create :question, survey_id: survey.id }
+  let(:checkbox) { create :checkbox, question_id: question.id }
 
   before do
     login_user user
@@ -24,11 +24,11 @@ RSpec.describe 'Checkboxes', type: :request do
 
   describe 'checkboxes#create' do
     it 'status200' do
-      post survey_checkboxes_path(survey.id), params: { checkbox: FactoryBot.attributes_for(:checkbox)}
+      post survey_checkboxes_path(survey.id), params: { checkbox: attributes_for(:checkbox) }
       expect(response).to have_http_status(:found)
     end
     it 'status404' do
-      post survey_checkboxes_path(1000), params: { checkbox: FactoryBot.attributes_for(:checkbox)}
+      post survey_checkboxes_path(1000), params: { checkbox: attributes_for(:checkbox) }
       expect(response).to have_http_status(:not_found)
     end
   end
@@ -36,7 +36,7 @@ RSpec.describe 'Checkboxes', type: :request do
   describe 'checkboxes#edit' do
     it 'status200' do
       get edit_survey_checkbox_path(survey.id, checkbox.id)
-        expect(response).to have_http_status(:ok)
+      expect(response).to have_http_status(:ok)
     end
     it 'status404' do
       get edit_survey_checkbox_path(survey.id, 1000)
@@ -46,11 +46,11 @@ RSpec.describe 'Checkboxes', type: :request do
 
   describe 'checkboxes#update' do
     it 'status200' do
-      put survey_checkbox_path(survey.id, checkbox.id), params: { checkbox: FactoryBot.attributes_for(:checkbox)}
-        expect(response).to have_http_status(:found)
+      put survey_checkbox_path(survey.id, checkbox.id), params: { checkbox: attributes_for(:checkbox) }
+      expect(response).to have_http_status(:found)
     end
     it 'status404' do
-      put survey_checkbox_path(survey.id, 1000), params: { checkbox: FactoryBot.attributes_for(:checkbox)}
+      put survey_checkbox_path(survey.id, 1000), params: { checkbox: attributes_for(:checkbox) }
       expect(response).to have_http_status(:not_found)
     end
   end
@@ -58,7 +58,7 @@ RSpec.describe 'Checkboxes', type: :request do
   describe 'checkboxes#destroy' do
     it 'status200' do
       delete survey_checkbox_path(survey.id, checkbox.id)
-        expect(response).to have_http_status(:found)
+      expect(response).to have_http_status(:found)
     end
     it 'status404' do
       delete survey_checkbox_path(survey.id, 1000)

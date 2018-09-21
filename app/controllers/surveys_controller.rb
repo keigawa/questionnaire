@@ -1,9 +1,9 @@
-class SurveysController < ApplicationController
-  before_action :set_survey, only: %i[show edit destroy]
+class SurveysController < ApplicationAdminsController
+  before_action :set_survey, only: %i[show edit update destroy]
+  before_action :set_company, only: %i[index new edit]
 
   def index
-    @surveys = Survey.where(company_id: current_user.company_id)
-    @company = Company.find(current_user.company_id)
+    @surveys = Survey.where(company_id: params[:company_id])
   end
 
   def new
@@ -11,13 +11,14 @@ class SurveysController < ApplicationController
   end
 
   def create
-    @survey = Survey.create(survey_params.merge(company_id: current_user.company_id))
-    redirect_to survey_path(@survey)
+    @survey = Survey.create(survey_params)
+    redirect_to surveys_path(company_id: @survey.company_id)
   end
 
   def show
     @questions = Question.where(survey_id: params[:id]).order(:display_order)
     @n = 1
+    @company = Company.find(@survey.company_id)
   end
 
   def edit; end
@@ -28,6 +29,7 @@ class SurveysController < ApplicationController
   end
 
   def destroy
+    company = Company.find(@survey.company_id)
     questions = Question.where(survey_id: @survey.id)
     checkboxes = []
     radiobuttons = []
@@ -54,16 +56,20 @@ class SurveysController < ApplicationController
       questions.destroy_all
     end
     @survey.destroy
-    redirect_to surveys_path, notice: 'Survey was successfully destroyed.'
+    redirect_to surveys_path(company_id: company.id), notice: 'Survey was successfully destroyed.'
   end
 
   private
+
+  def set_company
+    @company = Company.find(params[:company_id])
+  end
 
   def set_survey
     @survey = Survey.find(params[:id])
   end
 
   def survey_params
-    params.require(:survey).permit(:title)
+    params.require(:survey).permit(:title, :company_id)
   end
 end

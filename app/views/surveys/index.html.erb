@@ -1,9 +1,7 @@
 <h1>Survey</h1>
 
-<% if current_admin %>
-          <p><%= link_to 'Create Survey', new_survey_path %></p>
-        <% end %>
-        <br>
+<p><%= link_to 'Create Survey', new_survey_path(:company_id => @company.id) %></p>
+<br>
 
 <table>
   <thead>
@@ -13,20 +11,18 @@
   </thead>
 
   <tbody>
-  <% if current_user.president %>
-    <%= link_to "Members", company_users_path(@company) %><br />
-  <% end %>
     <% @surveys.each do |survey| %>
-      <tr>
-        <td><%= survey.title %></td>
-        <% done_flag=UserSurvey.find_by(user_id: current_user.id, survey_id: survey.id) %>
-        <% if done_flag %>
-          <td><%= link_to 'Show Result', result_path(:id => survey.id) %></td>
-        <% else %>
-          <td><%= link_to 'Answer to Survey', new_survey_answer_path(survey) %></td>
-      </tr>
+    <tr>
+      <td><%= survey.title %></td>
+      <% if survey.complete_flag %>
+      <td><%= link_to 'Show Survey(You cannot edit)', survey_questions_path(survey) %></td>
+      <td><%= link_to 'Delete(Include answers)', delete_all_path(:id => survey.id), method: :delete %></td>
+      <% else %>
+      <td><%= link_to 'Show Survey(You can edit)', survey_path(survey) %></td>
     <% end %>
-  <% end %>
+    </tr>
+    <% end %>
   </tbody>
 </table>
 
+<p><%= link_to 'Back', company_path(@company) %></p>

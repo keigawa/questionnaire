@@ -10,4 +10,4 @@
 <%= render partial: 'radiobutton', locals: {direction: survey_answer_radiobutton_options_path(@survey), type: @radiobutton, option: @radiobutton_options, question: @question} %>
 <% end %>
 
-<%= link_to 'Quit answering', surveys_path(@survey) %>
+<%= link_to 'Quit answering', home_user_path %>

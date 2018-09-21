@@ -1,0 +1,9 @@
+<h1>Profile</h1>
+<%= current_user.email %>
+<%= current_user.name %>
+<%= link_to 'Edit Profile', edit_user_registration_path %>
+<% if current_user.image_url %>
+<%= image_tag current_user.image_url %>
+<% end %>
+<%= link_to 'Edit Image', edit_image_path %>
+<%= link_to 'Back', home_user_path %>

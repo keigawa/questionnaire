@@ -1,0 +1,19 @@
+<h3>Edit Image</h3>
+
+<%= form_with(url: company_president_president_image_path(@company), local: true, method: :put) do |form| %>
+<div class="field">
+    <%= form.label :image %>
+    <%= form.file_field :image, id: :president_image %>
+    <%= form.hidden_field :image_cache %>
+</div>
+    <div class="field">
+    <% if @president.image? %>
+      <label>
+        <%= form.check_box :remove_image %>
+      Delete Image
+      </label>
+    <% end %>
+  </div>
+    <%= form.submit %>
+<% end %>
+<%= link_to 'Back', edit_company_president_path(@company) %>

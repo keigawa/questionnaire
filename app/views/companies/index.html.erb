@@ -1,0 +1,11 @@
+<h1>Companies</h1>
+
+<p><%= link_to 'Create Company', new_company_path %></p>
+
+<thead>
+<%  @companies.each do |c| %>
+<tr><%= c.name %></tr>
+<tr><%= link_to 'Detail', company_path(c) %></tr>
+<% end %>
+<p><%= link_to 'Delete Admin', admin_registration_path, method: :delete %></p>
+</thead>

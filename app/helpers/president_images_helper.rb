@@ -1,0 +1,2 @@
+module PresidentImagesHelper
+end

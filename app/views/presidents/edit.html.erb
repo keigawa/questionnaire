@@ -1,0 +1,19 @@
+<%= form_with(url: company_president_path(@company), method: "put", local: true) do |f| %>
+
+<div class="field">
+    <%= f.label :email %><br />
+    <%= f.email_field :email %>
+  </div>
+
+<div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+
+<div>
+    <%= f.submit %>
+  </div>
+<% end %>
+
+<%= link_to 'Edit Image', edit_company_president_president_image_path(@company) %>
+<%= link_to 'Back', company_path(@company) %>

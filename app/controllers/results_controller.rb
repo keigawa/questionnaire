@@ -1,4 +1,4 @@
-class ResultsController < ApplicationController
+class ResultsController < ApplicationUsersController
   def index
     @survey = Survey.find(params[:id])
     done_flag = UserSurvey.find_by(user_id: current_user.id, survey_id: @survey.id)

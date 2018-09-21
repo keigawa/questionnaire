@@ -2,26 +2,21 @@
 
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
-  before_action :authenticate_user!
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   def after_sign_in_path_for(_resource)
     if current_user
-      surveys_path
+      home_user_path
     elsif current_admin
       companies_path
     end
   end
 
-  def after_sign_out_path_for(_resource)
-    new_user_session_path
-    end
-
-    if !Rails.env.development?
-    rescue_from Exception,                        with: :render_500
+  unless Rails.env.development?
+    rescue_from Exception, with: :render_500
     rescue_from ActiveRecord::RecordNotFound,     with: :render_404
     rescue_from ActionController::RoutingError,   with: :render_404
-  end
+end
 
   def routing_error
     raise ActionController::RoutingError, params[:path]

@@ -1,14 +1,17 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  let(:company) { FactoryBot.create(:company) }
+  let(:company) { create :company }
+  let(:user) { build :user, company_id: company.id }
+  let(:user1) { create :user, email: 'a@a', company_id: company.id }
+  let(:user2) { create :user, email: 'a@a', company_id: company.id }
+
   it 'is valid with a email, name, password and password' do
-    user = FactoryBot.build(:user, company_id: company.id)
     expect(user).to be_valid
   end
 
   it 'is invalid with a duplicate email address' do
-    user = User.create(email: 'a@a', name: 'hoge1', password: 'aaaaaa', company_id: company.id)
-    expect{User.create!(email: 'a@a', name: 'hoge2', password: 'bbbbbb', company_id: company.id)}.to raise_error(ActiveRecord::RecordInvalid)
+    user1
+    expect { user2 }.to raise_error(ActiveRecord::RecordInvalid)
   end
 end

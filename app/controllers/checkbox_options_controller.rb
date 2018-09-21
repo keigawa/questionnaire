@@ -1,4 +1,4 @@
-class CheckboxOptionsController < ApplicationController
+class CheckboxOptionsController < ApplicationAdminsController
   before_action :set_survey
   before_action :set_checkbox, except: %i[update destroy]
   before_action :set_checkbox_option, except: %i[new create]

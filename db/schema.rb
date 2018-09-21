@@ -176,7 +176,7 @@ ActiveRecord::Schema.define(version: 2018_08_28_105509) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "name"
-    t.binary "picture"
+    t.string "image"
     t.boolean "president", default: false, null: false
     t.bigint "company_id"
     t.index ["company_id"], name: "index_users_on_company_id"

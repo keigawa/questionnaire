@@ -1,4 +1,4 @@
-class RadiobuttonOptionsController < ApplicationController
+class RadiobuttonOptionsController < ApplicationAdminsController
   before_action :set_survey
   before_action :set_radiobutton, except: %i[update destroy]
   before_action :set_radiobutton_option, except: %i[new create]

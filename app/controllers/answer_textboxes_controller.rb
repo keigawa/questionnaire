@@ -1,4 +1,4 @@
-class AnswerTextboxesController < ApplicationController
+class AnswerTextboxesController < ApplicationUsersController
   before_action :set_survey
   before_action :set_answer_textbox, only: %i[edit update]
 
@@ -10,7 +10,7 @@ class AnswerTextboxesController < ApplicationController
 
   def edit
     done_flag = UserSurvey.find_by(user_id: current_user.id, survey_id: @survey.id)
-    redirect_to surveys_path if done_flag
+    redirect_to home_user_path if done_flag
     @textbox = Textbox.find(@answer_textbox.textbox_id)
   end
 

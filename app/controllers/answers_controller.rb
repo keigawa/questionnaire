@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class AnswersController < ApplicationController
+class AnswersController < ApplicationUsersController
   def new
     @survey = Survey.find(params[:survey_id])
     done_flag = UserSurvey.find_by(user_id: current_user.id, survey_id: @survey.id)

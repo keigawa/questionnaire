@@ -1,4 +1,4 @@
-class CbanswersController < ApplicationController
+class CbanswersController < ApplicationUsersController
   before_action :set_checkbox
 
   def edit
@@ -9,11 +9,25 @@ class CbanswersController < ApplicationController
    end
 
   def update
-    AnswerCheckboxOption.update(check: 'no')
-    params[:answer_array].each do |a|
-      checked_op = AnswerCheckboxOption.find_by(checkbox_option_id: a)
-      checked_op.update(check: 'yes')
+    question = Question.find(@checkbox.question_id)
+    answers = Answer.where(question_id: question.id).where(user_id: current_user.id)
+    answers.each do |a|
+      answer_option = AnswerCheckboxOption.find_by(answer_id: a.id)
+      answer_option.update_attribute(:check, 'no')
+      if params[:answer_array].include?(answer_option.checkbox_option_id.to_s)
+        answer_option.update_attribute(:check, 'yes')
+      end
     end
+    redirect_to verify_path(id: params[:survey_id])
+  end
+
+  def destroy
+    question = Question.find(@checkbox.question_id)
+    answers = Answer.where(question_id: question.id).where(user_id: current_user.id)
+    answers.each do |a|
+      AnswerCheckboxOption.find_by(answer_id: a.id).destroy
+    end
+    answers.destroy_all
     redirect_to verify_path(id: params[:survey_id])
   end
 

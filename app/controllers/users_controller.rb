@@ -1,4 +1,4 @@
-class UsersController < ApplicationController
+class UsersController < ApplicationUsersController
   before_action :set_company, only: %i[index new]
   def index
     @users = User.where(company_id: current_user.company_id)

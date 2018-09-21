@@ -1,4 +1,4 @@
-class AnswerTextareasController < ApplicationController
+class AnswerTextareasController < ApplicationUsersController
   before_action :set_survey
   before_action :set_answer_textarea, only: %i[edit update]
 
@@ -10,7 +10,7 @@ class AnswerTextareasController < ApplicationController
 
   def edit
     done_flag = UserSurvey.find_by(user_id: current_user.id, survey_id: @survey.id)
-    redirect_to surveys_path if done_flag
+    redirect_to home_user_path if done_flag
     @textarea = Textarea.find(@answer_textarea.textarea_id)
   end
 

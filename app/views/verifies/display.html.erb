@@ -19,7 +19,7 @@
           <tr>
             <td>Your Answer</td>
             <td><%= answer_text.content %></td>
-            <td><%= link_to 'Edit Answer', edit_survey_answer_textbox_path(@survey,textbox) %></td>
+            <td><%= link_to 'Edit Answer', edit_survey_answer_textbox_path(@survey,AnswerTextbox.find_by(answer_id: answer.id)) %></td>
           </tr>
 
         <% elsif textarea %>
@@ -29,7 +29,7 @@
           <tr>
             <td>Your Answer</td>
             <td><%= answer_text.content %></td>
-            <td><%= link_to 'Edit Answer', edit_survey_answer_textarea_path(@survey,textarea) %></td>
+            <td><%= link_to 'Edit Answer', edit_survey_answer_textarea_path(@survey,AnswerTextarea.find_by(answer_id: answer.id)) %></td>
           </tr>
 
         <% elsif checkbox %>
@@ -52,7 +52,7 @@
               <% end %>
               <td><%= link_to 'Edit Answer', cbanswer_path(:id => checkbox.id, :survey_id => @survey.id) %></td>
             </tr>
-          </tbody> 
+          </tbody>
 
         <% elsif radiobutton %>
           <thead>
@@ -74,14 +74,16 @@
               <% end %>
               <td><%= link_to 'Edit Answer', rbanswer_path(:id => radiobutton.id, :survey_id => @survey.id) %></td>
             </tr>
-          </tbody> 
+          </tbody>
         <% end %>
       </div>
       <% @n+=1 %>
     <% end %>
+              <%= link_to 'Destroy Answer', verify_path(:survey_id => @survey.id), method: :delete %>
   </tbody>
 </table>
 
 <br>
 
 <%= link_to 'Complete Answer and Back to Home', verify_path(:id => @survey.id), :method => :post %>
+<%= link_to 'Back to Home', home_user_path %>
