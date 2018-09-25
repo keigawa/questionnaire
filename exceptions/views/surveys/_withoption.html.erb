@@ -1,0 +1,8 @@
+<thead>
+  <th><%= @n %></th>
+  <th><%= "Type: #{type_name}" %></th>
+  <th><%= type.subject %></th>
+  <td><%= link_to 'Edit Question', type_edit_url %></td>
+  <td><%= link_to 'Delete Question', type_delete_url, method: :delete %></td>
+  <td><%= link_to 'New Option', type_option_new_url %></td>
+</thead>

@@ -10,8 +10,12 @@ class CompaniesController < ApplicationAdminsController
   end
 
   def create
-    Company.create(company_params)
-    redirect_to companies_path
+    @company = Company.new(company_params)
+    if @company.save
+      redirect_to companies_path
+    else
+      render action: :new
+    end
   end
 
   def show
@@ -22,8 +26,11 @@ class CompaniesController < ApplicationAdminsController
   def edit; end
 
   def update
-    @company.update(survey_params)
-    redirect_to company_path(@company)
+    if @company.update(company_params)
+      redirect_to company_path(@company)
+    else
+      render action: :edit
+    end
   end
 
   def destroy

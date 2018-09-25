@@ -1,0 +1,8 @@
+<th>Question<%= @n %></th>
+<th><%= type.subject %></th>
+<% answer_text=answer_type.find_by(answer_id: answer.id) %>
+<tr>
+  <td>Your Answer</td>
+  <td><%= answer_text.content %></td>
+<td><%= link_to 'Edit Answer', type_url %></td>
+</tr>

@@ -1,0 +1,7 @@
+<%= form_with(model: [survey,answer], local: true) do |form| %>
+    <%= type.subject %>
+    <%= form.text_field :content %>
+    <%= form.hidden_field :textbox_id, :value=>type.id %>
+    <%= hidden_field_tag :question_id, question.id %>
+      <%= form.submit %>
+<% end %>

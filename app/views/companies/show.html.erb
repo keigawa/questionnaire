@@ -7,7 +7,7 @@
 <% if @president.image_url %>
 <%= image_tag @president.image_url %>
 <% end %>
-<%= link_to 'Edit President', edit_company_president_path(@company) %>
+<%= link_to 'Change President', edit_company_president_path(@company) %>
 <% else %>
 <%= "No President" %>
 <%= link_to 'Select President', edit_company_president_path(@company) %>
@@ -18,5 +18,6 @@
 <% end %>
 
 <p><%= link_to 'Survey Info', surveys_path(:company_id => @company.id) %></p>
-<p><%= link_to 'Delete Company', company_path(@company), method: :delete %></p>
+<p><%= link_to 'Edit Company Name', edit_company_path(:company_id => @company.id) %></p>
+<p><%= link_to 'Delete Company', company_path(@company), method: :delete, data: {confirm: "Are you sure?"} %></p>
 <p><%= link_to 'Back', companies_path %></p>

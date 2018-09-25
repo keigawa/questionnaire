@@ -1,0 +1,5 @@
+<h1>New Radiobutton</h1>
+
+<%= render partial: '../views/form_option', locals: {survey: @survey, type: @radiobutton, option_type: @radiobutton_option} %>
+
+<%= link_to 'Back', new_survey_path(:company_id => @survey.company_id) %>

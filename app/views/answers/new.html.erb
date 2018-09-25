@@ -1,5 +1,25 @@
 <h1>Question <%= @n %></h1>
 
+<% if @answer_textbox %>
+<% if @answer_textbox.errors.any? %>
+<h3><%= @answer_textbox.errors.count %> errors has been found. Click 'Quit answering' and Try to answer again.</h3>
+<ul>
+  <% @answer_textbox.errors.full_messages.each do |message| %>
+  <li><%= message %></li>
+  <% end %>
+  <% end %>
+</ul>
+  <% elsif @answer_textarea %>
+  <% if @answer_textarea.errors.any? %>
+  <h3><%= @answer_textarea.errors.count %> errors has been found. Click 'Quit answering' and Try to answer again.</h3>
+  <ul>
+    <% @answer_textarea.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+    <% end %>
+    <% end %>
+  </ul>
+  <% end %>
+
 <% if @textbox %>
 <%= render partial: 'textbox', locals: {survey: @survey, type: @textbox, answer: @answer_textbox, question: @question} %>
 <% elsif @textarea %>

@@ -2,4 +2,6 @@
 
 class RadiobuttonOption < ApplicationRecord
   belongs_to :radiobutton
+
+  validates :optionname, presence: true
 end

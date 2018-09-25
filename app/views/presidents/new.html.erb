@@ -1,3 +1,14 @@
+<% if @user %>
+<% if @user.errors.any? %>
+    <h3><%= @user.errors.count %> errors has been found.</h3>
+    <ul>
+      <% @user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  <% end %>
+  <% end %>
+
 <%= form_with(url: company_president_path(@company), method: "post", local: true) do |f| %>
 
 <div class="field">
@@ -8,6 +19,12 @@
 <div class="field">
   <%= f.label :name %><br />
   <%= f.text_field :name %>
+</div>
+
+<div class="field">
+    <%= f.label :image %>
+    <%= f.file_field :image, id: :president_image %>
+    <%= f.hidden_field :image_cache %>
 </div>
 
 <div class="field">

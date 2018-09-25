@@ -1,4 +1,13 @@
 <%= form_with(model: [survey,type,option_type], local: true) do |form| %>
+
+<% if option_type.errors.any? %>
+    <h3><%= option_type.errors.count %> errors has been found.</h3>
+    <ul>
+      <% option_type.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  <% end %>
     <%= form.label :optionname %>
     <%= form.text_field :optionname %>
     <%= form.hidden_field :survey_id, :value=>survey.id %>

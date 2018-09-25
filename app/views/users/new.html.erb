@@ -1,10 +1,30 @@
-<%= form_with(model: [@company,@user], local: true, method: :post) do |form| %>
-  <p> <%= form.label :email %>
-<%= form.text_field :email %></p>
-  <p>  <%= form.label :name %>
-<%= form.text_field :name %></p>
-  <p><%= form.label :password %>
-<%= form.text_field :password %></p>
-  <p>  <%= form.submit %></p>
+<%= form_with(model: [@company,@user], local: true, method: :post) do |f| %>
+
+<% if @user.errors.any? %>
+    <h3><%= @user.errors.count %> errors has been found.</h3>
+    <ul>
+      <% @user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  <% end %>
+<div class="field">
+  <%= f.label :email %><br />
+  <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+</div>
+<div class="field">
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+</div>
+<div class="field">
+  <%= f.label :image %>
+  <%= f.file_field :image, id: :president_image %>
+  <%= f.hidden_field :image_cache %>
+</div>
+  <div class="field">
+    <%= f.label :password %><br />
+    <%= f.password_field :password, autocomplete: "current-password" %>
+</div>
+<p>  <%= f.submit %></p>
 <% end %>
-  <p>  <%= link_to "Back", company_users_path(@company) %></p>
+<p>  <%= link_to "Back", company_users_path(@company) %></p>

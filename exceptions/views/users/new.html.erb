@@ -1,0 +1,21 @@
+<%= form_with(model: [@company,@user], local: true, method: :post) do |f| %>
+<div class="field">
+  <%= f.label :email %><br />
+  <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+</div>
+<div class="field">
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+</div>
+<div class="field">
+  <%= f.label :image %>
+  <%= f.file_field :image, id: :president_image %>
+  <%= f.hidden_field :image_cache %>
+</div>
+<div class="field">
+  <%= f.label :password %>
+</div>
+<%= f.text_field :password %>
+<p>  <%= f.submit %></p>
+<% end %>
+<p>  <%= link_to "Back", company_users_path(@company) %></p>

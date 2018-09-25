@@ -1,0 +1,22 @@
+<h1><%= @company.name %></h1>
+<% if @any_member %>
+<% if @president %>
+<%= "President Info"%>
+<%= @president.email %>
+<%= @president.name %>
+<% if @president.image_url %>
+<%= image_tag @president.image_url %>
+<% end %>
+<%= link_to 'Change President', edit_company_president_path(@company) %>
+<% else %>
+<%= "No President" %>
+<%= link_to 'Select President', edit_company_president_path(@company) %>
+<% end %>
+<% else %>
+<%= "No Members" %>
+<%= link_to 'New President', new_company_president_path(@company) %>
+<% end %>
+
+<p><%= link_to 'Survey Info', surveys_path(:company_id => @company.id) %></p>
+<p><%= link_to 'Delete Company', company_path(@company), method: :delete %></p>
+<p><%= link_to 'Back', companies_path %></p>

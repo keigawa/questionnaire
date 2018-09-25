@@ -1,0 +1,5 @@
+<h1>New Checkbox</h1>
+
+<%= render partial: '../views/form_option', locals: {survey: @survey, type: @checkbox, option_type: @checkbox_option} %>
+
+<%= link_to 'Back', new_survey_path(:company_id => @survey.company_id) %>

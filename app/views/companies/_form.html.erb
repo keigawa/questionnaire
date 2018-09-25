@@ -1,5 +1,13 @@
 <%= form_with(model: company, local: true) do |form| %>
 
+<% if company.errors.any? %>
+    <h3><%= company.errors.count %> errors has been found.</h3>
+    <ul>
+      <% company.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  <% end %>
   <div>
     <%= form.label :name %>
     <%= form.text_field :name %>

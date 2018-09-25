@@ -1,4 +1,14 @@
 <h1>Edit Answer</h1>
+
+<% if @answer_textbox.errors.any? %>
+<h3><%= @answer_textbox.errors.count %> errors has been found.</h3>
+<ul>
+  <% @answer_textbox.errors.full_messages.each do |message| %>
+  <li><%= message %></li>
+  <% end %>
+  <% end %>
+</ul>
+
 <%= form_with(model: [@survey,@answer_textbox], local: true) do |form| %>
     <%= @textbox.subject %>
     <%= form.text_field :content %>

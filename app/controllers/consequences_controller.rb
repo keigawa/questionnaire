@@ -2,8 +2,8 @@ class ConsequencesController < ApplicationUsersController
   def display
     @survey = Survey.find(params[:survey_id])
     done_flag = UserSurvey.find_by(user_id: current_user.id, survey_id: @survey.id)
-    if done_flag
-    else redirect_to surveys_path
+    unless current_user.president
+      redirect_to home_user_path unless done_flag
     end
     answers = Answer.where(question_id: params[:question_id])
     checkbox = Checkbox.find_by(question_id: params[:question_id])

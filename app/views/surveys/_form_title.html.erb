@@ -1,5 +1,13 @@
 <%= form_with(model: survey, local: true) do |form| %>
 
+<% if survey.errors.any? %>
+    <h3><%= survey.errors.count %> errors has been found.</h3>
+    <ul>
+      <% survey.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  <% end %>
   <div>
     <%= form.label :title %>
     <%= form.text_field :title %>

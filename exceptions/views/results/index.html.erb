@@ -1,0 +1,56 @@
+<table>
+  <thead>
+    <tr>
+      <th>Questions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @questions.each do |q| %>
+      <div>
+        <tr>
+          <% textbox=Textbox.find_by(question_id: q.id) %>
+          <% textarea=Textarea.find_by(question_id: q.id) %>
+          <% checkbox=Checkbox.find_by(question_id: q.id) %>
+          <% radiobutton=Radiobutton.find_by(question_id: q.id) %>
+
+          <% if textbox %>
+<th><%= @n %></th>
+<th><%= textbox.subject %></th>
+<th> <%= link_to "Result", consequence_path(:survey_id => @survey.id, :question_id => q.id) %></th>
+          <% elsif textarea %>
+<th><%= @n %></th>
+<th><%= textarea.subject %></th>
+<th><%= link_to "Result", consequence_path(:survey_id => @survey.id, :question_id => q.id) %></th>
+
+          <% elsif checkbox %>
+<th><%= @n %></th>
+<th><%= checkbox.subject %></th>
+            <% options=CheckboxOption.where(checkbox_id: checkbox.id) %>
+            <% options.each do |op| %>
+              <tbody><th><%= op.optionname %></th>
+              <% end %>
+              </tbody>
+            <th><%= link_to "Result", consequence_path(:survey_id => @survey.id, :question_id => q.id) %></th>
+
+            <% elsif radiobutton %>
+<th><%= @n %></th>
+<th><%= radiobutton.subject %></th>
+              <% options=RadiobuttonOption.where(radiobutton_id: radiobutton.id) %>
+              <% options.each do |op| %>
+                <tbody>
+                  <th><%= op.optionname %></th>
+                <% end %>
+                </tbody>
+           <th><%= link_to "Result", consequence_path(:survey_id => @survey.id, :question_id => q.id) %></th>
+
+              <% end %>
+        </tr>
+      </div>
+      <% @n+=1 %>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'Back', home_user_path %>

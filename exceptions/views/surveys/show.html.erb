@@ -1,0 +1,63 @@
+<h1><%= @survey.title %></h1>
+<td><%= link_to 'Edit', edit_survey_path(:id => @survey.id, :company_id => @company.id) %></td>
+<td><%= link_to 'Delete', survey_path(@survey), method: :delete %></td>
+<br>
+<br>
+<br>
+<table>
+  <thead>
+    <tr>
+      <th>Questions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @questions.each do |q| %>
+    <div><tr>
+      <% textbox=Textbox.find_by(question_id: q.id) %>
+      <% textarea=Textarea.find_by(question_id: q.id) %>
+      <% checkbox=Checkbox.find_by(question_id: q.id) %>
+      <% radiobutton=Radiobutton.find_by(question_id: q.id) %>
+
+      <% if textbox %>
+      <%= render partial: 'nooption', locals: {type: textbox, type_edit_url: edit_survey_textbox_path(@survey,textbox), type_delete_url: survey_textbox_path(@survey,textbox), type_name: "Textbox"} %>
+
+      <% elsif textarea %>
+      <%= render partial: 'nooption', locals: {type: textarea, type_edit_url: edit_survey_textarea_path(@survey,textarea), type_delete_url: survey_textarea_path(@survey,textarea), type_name: "Textarea"} %>
+
+      <% elsif checkbox %>
+      <%= render partial: 'withoption', locals: {type: checkbox, type_edit_url: edit_survey_checkbox_path(@survey,checkbox) , type_delete_url: survey_checkbox_path(@survey,checkbox), type_option_new_url: new_survey_checkbox_checkbox_option_path(@survey,checkbox), type_name: "Checkbox"} %>
+      <% options=CheckboxOption.where(checkbox_id: checkbox.id) %>
+      <% options.each do |op| %>
+      <tbody><th><%= op.optionname %></th>
+        <td><%= link_to 'Edit Boxname', edit_survey_checkbox_checkbox_option_path(@survey,checkbox,op) %></td>
+        <td><%= link_to 'Delete Box', survey_checkbox_checkbox_option_path(@survey,checkbox,op), method: :delete %></td>
+        <% end %>
+      </tbody>
+
+      <% elsif radiobutton %>
+      <%= render partial: 'withoption', locals: {type: radiobutton, type_edit_url: edit_survey_radiobutton_path(@survey,radiobutton), type_delete_url: survey_radiobutton_path(@survey,radiobutton), type_option_new_url: new_survey_radiobutton_radiobutton_option_path(@survey,radiobutton), type_name: "Radiobutton"} %>
+      <% options=RadiobuttonOption.where(radiobutton_id: radiobutton.id) %>
+      <% options.each do |op| %>
+      <tbody>
+        <th><%= op.optionname %></th>
+        <td><%= link_to 'Edit Buttonname', edit_survey_radiobutton_radiobutton_option_path(@survey,radiobutton,op) %></td>
+        <td><%= link_to 'Delete Button', survey_radiobutton_radiobutton_option_path(@survey,radiobutton,op), method: :delete %></td>
+        <% end %>
+      </tbody>
+
+      <% end %>
+    </tr>
+  </div>
+  <% @n+=1 %>
+  <% end %>
+</tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Question', new_survey_question_path(@survey) %>
+<%= link_to 'Back', surveys_path(:company_id => @company.id) %>
+
+<br>
+
+<%= link_to 'Comfirm this survey', confirm_path(:id => @survey.id), method: :post %>
