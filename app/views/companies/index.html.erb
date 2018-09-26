@@ -7,5 +7,5 @@
 <tr><%= c.name %></tr>
 <tr><%= link_to 'Detail', company_path(c) %></tr>
 <% end %>
-<p><%= link_to 'Delete Admin', admin_registration_path, method: :delete %></p>
+<p><%= link_to 'Delete Admin', admin_registration_path, method: :delete, data: {confirm: "Are you sure?"} %></p>
 </thead>

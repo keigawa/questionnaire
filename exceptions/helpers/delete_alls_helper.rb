@@ -1,0 +1,2 @@
+module DeleteAllsHelper
+end

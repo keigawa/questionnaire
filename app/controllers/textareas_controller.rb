@@ -8,23 +8,30 @@ class TextareasController < ApplicationAdminsController
   end
 
   def create
-    exist_flag = Question.find_by(survey_id: params[:survey_id])
-    if exist_flag
-      latest_number = Question.where(survey_id: params[:survey_id]).maximum(:display_order)
-      input_number = latest_number + 1
-      question = Question.create(display_order: input_number, survey_id: params[:survey_id])
+    questions = Question.where(survey_id: params[:survey_id])
+    latest_number = if questions.empty?
+                      0
+                    else
+                      questions.maximum(:display_order)
+                   end
+    question = Question.create(display_order: latest_number + 1, survey_id: params[:survey_id])
+    @textarea = Textarea.new(textarea_params.merge(question_id: question.id))
+    if @textarea.save
+      redirect_to survey_path(@survey)
     else
-      question = Question.create(display_order: 1, survey_id: params[:survey_id])
+      question.destroy
+      render action: :new
     end
-    Textarea.create(textarea_params.merge(question_id: question.id))
-    redirect_to survey_path(@survey)
   end
 
   def edit; end
 
   def update
-    @textarea.update(textarea_params)
-    redirect_to survey_path(@survey), notice: 'Question was successfully updated.'
+    if @textarea.update(textarea_params)
+      redirect_to survey_path(@survey), notice: 'Question was successfully updated.'
+    else
+      render action: :edit
+  end
   end
 
   def destroy

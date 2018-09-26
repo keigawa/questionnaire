@@ -4,8 +4,13 @@ class AnswerTextareasController < ApplicationUsersController
 
   def create
     @answer = Answer.create(question_id: params[:question_id], user_id: current_user.id, survey_id: @survey.id)
-    AnswerTextarea.create(params.require(:answer_textarea).permit(:content, :textarea_id).merge(answer_id: @answer.id))
-    redirect_to new_survey_answer_path(@survey)
+    @answer_textarea = AnswerTextarea.new(params.require(:answer_textarea).permit(:content, :textarea_id).merge(answer_id: @answer.id))
+    if @answer_textarea.save
+      redirect_to new_survey_answer_path(@survey)
+    else
+      @answer.destroy
+      render template: 'answers/new'
+  end
   end
 
   def edit
@@ -15,8 +20,12 @@ class AnswerTextareasController < ApplicationUsersController
   end
 
   def update
-    @answer_textarea.update(params.require(:answer_textarea).permit(:content))
-    redirect_to verify_path(id: @survey.id)
+    if @answer_textarea.update(params.require(:answer_textarea).permit(:content))
+      redirect_to verify_path(id: @survey.id)
+    else
+      @textarea = Textarea.find(@answer_textarea.textarea_id)
+      render action: :edit
+  end
   end
 
   private

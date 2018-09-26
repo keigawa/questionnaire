@@ -2,4 +2,6 @@
 
 class Textbox < ApplicationRecord
   belongs_to :question
+
+  validates :subject, presence: true
 end

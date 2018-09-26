@@ -8,4 +8,5 @@ class User < ApplicationRecord
   belongs_to :company
 
   mount_uploader :image, ImageUploader
+  validates :password, length: { minimum: 6 }
 end

@@ -16,7 +16,7 @@
       <td><%= survey.title %></td>
       <% if survey.complete_flag %>
       <td><%= link_to 'Show Survey(You cannot edit)', survey_questions_path(survey) %></td>
-      <td><%= link_to 'Delete(Include answers)', delete_all_path(:id => survey.id), method: :delete %></td>
+      <td><%= link_to 'Delete(Include answers)', delete_all_path(:id => survey.id), method: :delete, data: {confirm: "Are you sure?"} %></td>
       <% else %>
       <td><%= link_to 'Show Survey(You can edit)', survey_path(survey) %></td>
     <% end %>

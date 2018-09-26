@@ -11,8 +11,13 @@ class SurveysController < ApplicationAdminsController
   end
 
   def create
-    @survey = Survey.create(survey_params)
-    redirect_to surveys_path(company_id: @survey.company_id)
+    @survey = Survey.new(survey_params)
+    if @survey.save
+      redirect_to surveys_path(company_id: @survey.company_id)
+    else
+      @company = Company.find(@survey.company_id)
+      render action: :new
+  end
   end
 
   def show
@@ -24,8 +29,12 @@ class SurveysController < ApplicationAdminsController
   def edit; end
 
   def update
-    @survey.update(survey_params)
-    redirect_to survey_path(@survey), notice: 'Survey was successfully updated.'
+    if @survey.update(survey_params)
+      redirect_to survey_path(@survey), notice: 'Survey was successfully updated.'
+    else
+      @company = Company.find(@survey.company_id)
+      render action: :edit
+  end
   end
 
   def destroy

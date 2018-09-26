@@ -1,6 +1,6 @@
 class RadiobuttonOptionsController < ApplicationAdminsController
   before_action :set_survey
-  before_action :set_radiobutton, except: %i[update destroy]
+  before_action :set_radiobutton, except: :destroy
   before_action :set_radiobutton_option, except: %i[new create]
 
   def new
@@ -8,15 +8,22 @@ class RadiobuttonOptionsController < ApplicationAdminsController
   end
 
   def create
-    @radiobutton_option = RadiobuttonOption.create(option_params.merge(radiobutton_id: @radiobutton.id))
-    redirect_to survey_path(@survey)
+    @radiobutton_option = RadiobuttonOption.new(option_params.merge(radiobutton_id: @radiobutton.id))
+    if @radiobutton_option.save
+      redirect_to survey_path(@survey)
+    else
+      render action: :new
+  end
   end
 
   def edit; end
 
   def update
-    @radiobutton_option.update(option_params)
-    redirect_to survey_path(@survey), notice: 'Optionname was successfully updated.'
+    if @radiobutton_option.update(option_params)
+      redirect_to survey_path(@survey), notice: 'Optionname was successfully updated.'
+    else
+      render action: :edit
+  end
   end
 
   def destroy
