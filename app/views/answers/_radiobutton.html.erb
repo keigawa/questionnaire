@@ -1,9 +1,9 @@
 <%= form_with(url: direction, local: true, :method => :post) do %>
-  <%= type.subject %>
-  <% option.each do |op|%>
-    <%= label_tag op.optionname %>
-    <%= radio_button_tag('answer_button', op.id) %>
-  <% end %>
-  <%= hidden_field_tag :question_id, question.id %>
-  <%= submit_tag %>
+<%= type.subject %>
+<% option.each do |op|%>
+<%= label_tag op.optionname %>
+<%= radio_button_tag('answer_button', op.id) %>
+<% end %>
+<%= hidden_field_tag :question_id, question.id %>
+<%= submit_tag %>
 <% end %>

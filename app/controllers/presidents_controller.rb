@@ -22,7 +22,7 @@ class PresidentsController < ApplicationAdminsController
   def edit; end
 
   def update
-    president = User.find_by(email: params[:email], name: params[:name])
+    president = User.find_by(email: params[:email], name: params[:name], company_id: @company.id)
     if president
       User.where(company_id: @company.id).update_all(president: false)
       president.update_attribute(:president, true)

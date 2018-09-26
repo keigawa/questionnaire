@@ -20,7 +20,21 @@ class UsersController < ApplicationUsersController
   end
 
   def destroy
-    User.find(params[:id]).destroy
+    user = User.find(params[:id])
+    answers = Answer.where(user_id: user.id)
+    answers.each do |a|
+      if textbox = AnswerTextbox.find_by(answer_id: a.id)
+        textbox.destroy
+      elsif textarea = AnswerTextarea.find_by(answer_id: a.id)
+        textarea.destroy
+      elsif checkbox_option = AnswerCheckboxOption.find_by(answer_id: a.id)
+        checkbox_option.destroy
+      elsif radiobutton_option = AnswerRadiobuttonOption.find_by(answer_id: a.id)
+        radiobutton_option.destroy
+      end
+    end
+    answers.destroy_all
+    user.destroy
     redirect_to company_users_path
   end
 

@@ -77,7 +77,7 @@ group :development do
   gem 'binding_of_caller'
 
   gem 'rubocop', require: false
-  
+
   gem 'rubocop-rspec'
 end
 
@@ -94,3 +94,5 @@ end
 gem 'devise'
 
 gem 'chartkick'
+
+gem 'rails-erd'
